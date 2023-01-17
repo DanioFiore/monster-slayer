@@ -29,11 +29,14 @@
           <div class="healthbar__value" :style="playerBarStyles"></div>
         </div>
       </section>
+      <section class="container" v-show="playerWin || monsterWin">
+        <h3>{{finishGame}}</h3>
+      </section>
       <section id="controls">
-        <button @click="attackMonster">ATTACK</button>
-        <button :disabled="mayUseSpecialAttack" @click="specialAttack">SPECIAL ATTACK</button>
-        <button @click="healPlayer">HEAL</button>
-        <button>SURRENDER</button>
+        <button :disabled="disableButtonsAfterFinish" @click="attackMonster">ATTACK</button>
+        <button :disabled="mayUseSpecialAttack || disableButtonsAfterFinish" @click="specialAttack">SPECIAL ATTACK</button>
+        <button :disabled="disableButtonsAfterFinish" @click="healPlayer">HEAL</button>
+        <button :disabled="disableButtonsAfterFinish">SURRENDER</button>
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>

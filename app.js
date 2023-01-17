@@ -8,7 +8,9 @@ const app = Vue.createApp({
         return {
             playerHealth: 100,
             monsterHealth: 100,
-            specialAttackCounter: 0
+            specialAttackCounter: 0,
+            playerWin: false,
+            monsterWin: false,
         }
     },
 
@@ -23,6 +25,38 @@ const app = Vue.createApp({
 
         mayUseSpecialAttack() {
             return this.specialAttackCounter < 3;
+        },
+
+        finishGame() {
+            if(this.playerWin) {
+                return 'You Win!'
+            } else if(this.monsterWin) {
+                return 'You Lose!'
+            }
+        },
+
+        disableButtonsAfterFinish() {
+            if(this.playerWin || this.monsterWin) {
+                return true
+            } 
+        },
+        
+    },
+
+    watch: {
+        playerHealth(value) {
+            if(value < 1){
+                this.playerHealth = 0;
+                this.monsterWin = true;
+            }
+        },
+
+        monsterHealth(value) {
+            if(value < 1) {
+                this.monsterHealth = 0;
+                this.playerWin = true;
+            }
+            
         }
     },
 
