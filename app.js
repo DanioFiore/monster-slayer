@@ -16,10 +16,16 @@ const app = Vue.createApp({
 
     computed: {
         playerBarStyles() {
+            if(this.playerHealth < 1) {
+                return {width: '0%'}
+            }
             return {width: this.playerHealth + '%'};
         },
 
         monsterBarStyles() {
+            if(this.monsterHealth < 1) {
+                return {width: '0%'}
+            }
             return {width: this.monsterHealth + '%'};
         },
 
@@ -46,14 +52,12 @@ const app = Vue.createApp({
     watch: {
         playerHealth(value) {
             if(value < 1){
-                this.playerHealth = 0;
                 this.monsterWin = true;
             }
         },
 
         monsterHealth(value) {
             if(value < 1) {
-                this.monsterHealth = 0;
                 this.playerWin = true;
             }
             
